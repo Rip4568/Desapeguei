@@ -1,8 +1,0 @@
-1) Sistema completo de login,logout,trocar senha e whatever
-2) qualquer pessoas pode vender qualquer coisa
-3) qualquer item pode ser comprado, logo apos ser comprado sera removido da galeria e sera adicionado 
-ao backlog do usuario vendedor a finalização da venda, o mesmo para o comprador!
-4) será acrescido o dinheiro em conta caso a venda seja feita com sucesso, o mesmo vale para o comprador porem
-será diminuido
-5) implementar um chat de tempo real async
-
