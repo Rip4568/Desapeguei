@@ -105,7 +105,9 @@ celerybeat.pid
 .env
 .venv
 env/
+#!venv/Lib/site-packages/allauth/
 venv/
+#venv/
 ENV/
 env.bak/
 venv.bak/
@@ -137,3 +139,4 @@ aFazer.txt
 
 #test
 .ignore
+

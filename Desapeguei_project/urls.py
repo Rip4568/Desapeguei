@@ -24,7 +24,7 @@ urlpatterns = [
     #rota para o acesso de administração
     path('admin/', admin.site.urls),
     #rota para acessar as configurações de login
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('allauth.urls')),
     #rotas dos aplicativos
     path('',include('Home_app.urls')),
 
