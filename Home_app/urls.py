@@ -11,4 +11,6 @@ urlpatterns = [
     path('contact/',views.ContactTemplteView.as_view(),name='Contact'),
     path('checkout/',views.CheckoutTemplateView.as_view(),name='Checkout'),
     path('cart/',views.CartTemplateView.as_view(),name='Cart'),
+    #LEMBRETE tirar a rota daqui e por no aplicativo Perfil_app.urls
+    
 ]

@@ -8,3 +8,4 @@ from .models import Perfil
 class PerfilAdmin(admin.ModelAdmin):
     list_display = ['usuario','nome','ingressou'] """
     
+admin.site.register(Perfil)

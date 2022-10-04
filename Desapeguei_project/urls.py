@@ -27,5 +27,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     #rotas dos aplicativos
     path('',include('Home_app.urls')),
+    path('perfil/',include('Perfil_app.urls'))
 
 ]

@@ -23,5 +23,3 @@ class CartTemplateView(TemplateView):
     template_name = "Home_app/cart.html"
 
 
-
-
