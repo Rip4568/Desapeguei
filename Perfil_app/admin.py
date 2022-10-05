@@ -1,11 +1,9 @@
+from .models import Perfil,Historico
 from django.contrib import admin
-
-# Register your models here.
-
-from .models import Perfil
 
 """ @admin.register()
 class PerfilAdmin(admin.ModelAdmin):
     list_display = ['usuario','nome','ingressou'] """
     
 admin.site.register(Perfil)
+admin.site.register(Historico)

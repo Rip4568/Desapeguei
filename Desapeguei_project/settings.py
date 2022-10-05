@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'Perfil_app',
     'Home_app',
     'Produtos_app',
+    #3rd party
+    'django_extensions',
     #allauth configurations
     'allauth',
     'allauth.account',

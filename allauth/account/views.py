@@ -43,6 +43,7 @@ from .utils import (
     url_str_to_user_pk,
 )
 
+from Perfil_app.models import Perfil
 
 INTERNAL_RESET_SESSION_KEY = "_password_reset_key"
 
@@ -248,6 +249,7 @@ class SignupView(
         # By assigning the User to a property on the view, we allow subclasses
         # of SignupView to access the newly created User instance
         self.user = form.save(self.request)
+        Perfil.objects.create(usuario=self.user).save()
         try:
             return complete_signup(
                 self.request,
