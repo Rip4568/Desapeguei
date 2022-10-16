@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dotenv
 dotenv.load_dotenv()
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,20 +42,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #configuraões adicionais internos do django
+    'django.contrib.humanize',
     #apps instalado pelo django-app
     'Perfil_app',
     'Home_app',
     'Produtos_app',
     #3rd party
     'django_extensions',
+    'crispy_forms',
+    'django_unicorn',
     #allauth configurations
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
 ]
+"""     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google', """
 
-
+#instalar o whitenoise para a compreensão dos dados
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -89,10 +95,25 @@ WSGI_APPLICATION = 'Desapeguei_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
+DATABASES = {
+    "default":dj_database_url.config(default='postgresql://postgres:admin@localhost:5432/desapeguei_project_db',conn_max_age=600)
+}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'desapeguei_project_db', 
+        'USER': 'postgres', 
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1', 
+        'PORT': '5432',
     }
 }
 
@@ -145,3 +166,5 @@ REGISTER_REDIRECT_URL = '/'#ao se registrar sera redirecionado para a seguinte u
 LOGIN_REDIRECT_URL = '/'#ao fazer login sera redirecionado para a seginte url
 SIGNUP_REDIRECT_URL = '/'#ao fazer o registro sera redirecionado para a seguinte url
 LOGOUT_REDIRECT_URL = '/'#ao deslogar do site sera redirecionado para a seguinte url
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

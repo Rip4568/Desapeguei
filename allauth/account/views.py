@@ -249,7 +249,8 @@ class SignupView(
         # By assigning the User to a property on the view, we allow subclasses
         # of SignupView to access the newly created User instance
         self.user = form.save(self.request)
-        Perfil.objects.create(usuario=self.user).save()
+        #linkagem do perfil com o usuario
+        Perfil.objects.create(usuario=self.user,nome=self.user.username).save()
         try:
             return complete_signup(
                 self.request,

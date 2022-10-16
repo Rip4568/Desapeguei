@@ -1,0 +1,124 @@
+{% load static %} {% load humanize %} {% comment %} {% unicorn
+'modules/navbar_module.html' %} {% endcomment %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>MultiShop - Online Shop Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Free HTML Templates" name="keywords" />
+    <meta content="Free HTML Templates" name="description" />
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet" />
+    <link
+      href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Topbar Start -->
+    {% include "modules/topbar_module.html" %}
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    {% include 'modules/navbar_module.html' %}
+    <!-- Navbar End -->
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+      <div class="row px-xl-5">
+        <div class="col-12">
+          <nav class="breadcrumb bg-light mb-30">
+            <a
+              class="breadcrumb-item text-dark"
+              href="{% url 'Home_app:Home' %}"
+              >Home</a
+            >
+            <a
+              class="breadcrumb-item text-dark"
+              href="{% url 'Perfil_app:Perfil' %}"
+              >Perfil</a
+            >
+            <span class="breadcrumb-item active">Vender Produto</span>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Contact Start -->
+    <div class="container-fluid">
+      {% comment %}
+      <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3">Contact Us</span>
+      </h2>
+      {% endcomment %}
+      <div class="row px-xl-5">
+        <div class="col-lg-7 mb-5">
+          <div class="contact-form bg-light p-30">
+            <p>fomulario manual :</p>
+            <form action="post">
+              {{formmanual.as_p}}
+            </form>
+						<p>Formulario para a venda do produto abaixo:</p>
+						{% comment %} <form action="" method="post">
+							{% csrf_token %}
+							{{form.as_p}}
+							<button type="button" name="" id="" class="btn btn-warning">Vender Produto</button>
+						</form> {% endcomment %}
+        	</div>
+        </div>
+
+        <div class="col-lg-5 mb-5">
+          <div class="bg-light p-30 mb-3"><h1>Produtos nas prateleiras</h1></div>
+
+          <div class="bg-light p-30 mb-30">Listar aqui</div>
+        </div>
+      </div>
+    </div>
+    <!-- Contact End -->
+
+    <!-- Footer Start -->
+    {% include "modules/footer_module.html" %}
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"
+      ><i class="fa fa-angle-double-up"></i
+    ></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

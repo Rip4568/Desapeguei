@@ -1,21 +1,46 @@
-from email.policy import default
+from django.core.validators import MinValueValidator
 from django.db import models
+from Perfil_app.models import Perfil
 
-# Create your models here.
 
-from django.contrib.auth.models import User #
-
-class Produto(models.Model):
+class Imagens(models.Model):
     foto = models.ImageField(upload_to='uploads/')
-    #fotos
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)#related_name_padrao='produto_set'
-    nome = models.CharField(max_length=255)
-    preco = models.DecimalField(max_digits=6, decimal_places=2)
-    quantidade = models.IntegerField(default=1)
-    rating = models.DecimalField(max_digits=5, decimal_places=2)
-    #cupom/promocao/evento
-    
+    class Meta:
+        verbose_name = ("imagens")
+        verbose_name_plural = ("imagenss")
 
+    def __str__(self):
+        return self.foto
+
+class Categoria(models.Model):
+    categoria = models.CharField(max_length=128)
+    slug = models.SlugField(unique=True)
+    
+    def __str__(self):
+        return self.categoria
+        
+        
+class Produto(models.Model):
+    #fotos
+    """ campo publciado_por, explicacao:
+    como é um site que se trata de uma simulação de compra e vendas, obviamente
+    para se vender um item precisa ter alguem para publicar, logo esse campo é altamente
+    viavel"""
+    publicado_por = models.OneToOneField(Perfil, on_delete=models.CASCADE,default=1)
+    foto = models.ImageField(upload_to='uploads/',blank=True,null=True)
+    fotos = models.ForeignKey(Imagens, on_delete=models.DO_NOTHING,blank=True,null=True)
+    nome = models.CharField(max_length=255)
+    preco = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(0)])
+    descricao = models.TextField(blank=True,null=True)
+    data_de_publicacao = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    quantidade = models.PositiveIntegerField(default=1)
+    rating = models.DecimalField(max_digits=5, decimal_places=2)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    disponivel = models.BooleanField(default=True)
+
+    def valor_total(self):
+        return self.quantidade * self.preco
+    
     class Meta:
         verbose_name = ("produto")
         verbose_name_plural = ("produtos")

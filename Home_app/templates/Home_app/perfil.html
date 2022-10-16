@@ -1,5 +1,6 @@
 {% load static %}
 
+{% load humanize %}
 {% comment %} {% unicorn 'modules/navbar_module.html' %} {% endcomment %}
 
 <!DOCTYPE html>
@@ -64,14 +65,20 @@
                     <h2>Dados de Perfil</h2>
 										{% comment %} Lembrete:Colocar as fotos em png {% endcomment %}
                     <p>Foto de Perfil : {% if user.perfil.foto %} {{user.perfil.foto}} {% else %} <img src="https://e7.pngegg.com/pngimages/722/101/png-clipart-computer-icons-user-profile-circle-abstract-miscellaneous-rim-thumbnail.png" style="width:100px;height:100px;" alt=""> {% endif %}</p>
-                    <p>Nome: {% if user.perfil.nome_completo %} {{user.perfil.nome_completo}} {% else %} usuario sem nome {% endif %}</p>
-                    <p>Saldo: R${{user.perfil.saldo}}</p>
+                    <p>Nome: {% if user.perfil.nome %} {{user.perfil.nome}} {% else %} usuario sem nome {% endif %}</p>
+                    <p>Saldo: R${{user.perfil.saldo | intcomma }}</p>
                     <p>Data de registro: {{user.perfil.ingressou}}</p>
                     <div id="success"></div>
-										{{user.perfil}}
                 </div>
             </div>
+            
+            
             <div class="col-lg-5 mb-5">
+              
+              <div class="bg-light p-30 mb-3">
+                <h1>Venda um produto clicando <a href="{% url 'Home_app:vender_produto' %}">aqui</a></h1>
+              </div>
+
                 <div class="bg-light p-30 mb-30">
                     <h3>Historico recentes de Compra e Vendas</h3>
                     <hr>
@@ -85,7 +92,7 @@
                         <div style="">
                             <p>Data e Hora:</p>
                             <p>Produto:</p>
-                            <p>Comprador:</p>
+                            <p>Vendedor:</p>
                             <p>Valor:</p>
                         </div>
                       </div>
@@ -112,9 +119,7 @@
 
                   <a class="page-link align-content-center" href="" aria-label="Next">Ver Todo o historico</a>
                 </div>
-                <div class="bg-light p-30 mb-3">
-                    informacoes adicionais caso necessario
-                </div>
+                
                 
             </div>
         </div>
