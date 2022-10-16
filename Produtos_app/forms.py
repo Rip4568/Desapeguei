@@ -5,7 +5,11 @@ from django.forms import NumberInput, Widget
 from .models import Categoria, Produto
 
 def lista_de_categorias() -> list:
-    categorias = [(categoria.categoria, categoria.categoria) for categoria in Categoria.objects.all()]
+    categorias = ''
+    try:
+        categorias = [(categoria.categoria, categoria.categoria) for categoria in Categoria.objects.all()]
+    except:
+        categorias = [('ERROR','Não há categorias')]
     return categorias
         
 

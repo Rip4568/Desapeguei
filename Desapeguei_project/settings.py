@@ -99,23 +99,6 @@ WSGI_APPLICATION = 'Desapeguei_project.wsgi.application'
 DATABASES = {
     "default":dj_database_url.config(default='postgresql://postgres:admin@localhost:5432/desapeguei_project_db',conn_max_age=600)
 }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'desapeguei_project_db', 
-        'USER': 'postgres', 
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
-    }
-}
 
 
 # Password validation
