@@ -94,7 +94,7 @@
                 <tbody>
                   {% for historico in historicos %}
                   <tr>
-                    <th scope="row">1</th>#
+                    <th scope="row">{{forloop.count}}</th>#
                     <td>{{historico.comprador}}</td>
                     <td>{{historico.vendedor}}</td>
                     <td>{{historico.produto}}</td>
