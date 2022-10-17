@@ -16,16 +16,15 @@ class Categoria(models.Model):
     categoria = models.CharField(max_length=128)
     slug = models.SlugField(unique=True)
     
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.slug = self.categoria
+    
     def __str__(self):
         return self.categoria
         
         
 class Produto(models.Model):
-    #fotos
-    """ campo publciado_por, explicacao:
-    como é um site que se trata de uma simulação de compra e vendas, obviamente
-    para se vender um item precisa ter alguem para publicar, logo esse campo é altamente
-    viavel"""
     publicado_por = models.OneToOneField(Perfil, on_delete=models.CASCADE,default=1)
     foto = models.ImageField(upload_to='uploads/',blank=True,null=True)
     fotos = models.ForeignKey(Imagens, on_delete=models.DO_NOTHING,blank=True,null=True)
@@ -37,14 +36,13 @@ class Produto(models.Model):
     rating = models.DecimalField(max_digits=5, decimal_places=2)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     disponivel = models.BooleanField(default=True)
+    vendido = models.BooleanField(default=False,null=True,blank=True)
 
     def valor_total(self):
         return self.quantidade * self.preco
-    
     class Meta:
         verbose_name = ("produto")
         verbose_name_plural = ("produtos")
 
     def __str__(self):
         return self.nome
-

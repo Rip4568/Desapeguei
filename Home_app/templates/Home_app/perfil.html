@@ -76,13 +76,13 @@
             <div class="col-lg-5 mb-5">
               
               <div class="bg-light p-30 mb-3">
-                <h1>Venda um produto clicando <a href="{% url 'Home_app:vender_produto' %}">aqui</a></h1>
+                <h1>Venda um produto clicando <a href="{% url 'Home_app:vender_produto' %}" class="btn btn-warning btn-lg">aqui</a></h1>
               </div>
 
                 <div class="bg-light p-30 mb-30">
                     <h3>Historico recentes de Compra e Vendas</h3>
                     <hr>
-                    <p for=""><label for="" style="color:green">Venda</label> Feita com sucesso <img src="https://img1.gratispng.com/20180712/gyf/kisspng-computer-icons-sales-label-sale-icon-5b47ae0a3ba453.2045258115314242662443.jpg" alt="" style="height:30px;width:30px;">
+                    <p><label for="" style="color:green">Venda</label> Feita com sucesso <img src="https://img1.gratispng.com/20180712/gyf/kisspng-computer-icons-sales-label-sale-icon-5b47ae0a3ba453.2045258115314242662443.jpg" alt="" style="height:30px;width:30px;">
                       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExtendInformation1" aria-expanded="false" aria-controls="collapseExtendInformation1">
                         Mais Informações
                       </button>
@@ -117,7 +117,10 @@
                       </div>
                     </p>
 
-                  <a class="page-link align-content-center" href="" aria-label="Next">Ver Todo o historico</a>
+                  <div class="card">
+                    <button onclick="location.href='{% url 'Home_app:historicos' %}'" type="button" name="" id="" class="btn btn-warning">Ver Todo o historico</button>
+                  </div>
+                  
                 </div>
                 
                 

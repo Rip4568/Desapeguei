@@ -5,11 +5,14 @@ from django.forms import NumberInput, Widget
 from .models import Categoria, Produto
 
 def lista_de_categorias() -> list:
-    categorias = ''
-    try:
+    #categorias = ''
+    if Categoria.objects.exists():
         categorias = [(categoria.categoria, categoria.categoria) for categoria in Categoria.objects.all()]
-    except:
-        categorias = [('ERROR','Não há categorias')]
+    else:
+        #Caso não exista criar uma categoria padrão pra depois o usuario trocar
+        #caso não consiga criar retornar um modelo de uma categoria (como abaixo)
+        categorias = [('Sem_Categoria','Sem_Categoria')]
+        return categorias
     return categorias
         
 
@@ -18,11 +21,12 @@ class ProdutoManualForm(forms.Form):
     foto = forms.ImageField(
         label="Foto do produto* (apenas uma)",
         allow_empty_file=False,
-        required=True,
+        required=False,
         )
     
     #nome = models.CharField(max_length=255)
     nome = forms.CharField(
+
         required=True,
         label="Nome do Produto* ",
         widget=forms.TextInput(
@@ -82,13 +86,13 @@ class ProdutoManualForm(forms.Form):
     #categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     categoria = forms.ChoiceField(
         label="Categoria do produto",
-        choices=lista_de_categorias(),
         required=True,
+        choices=lista_de_categorias(),
         #widget=forms.QUAL_WIDGET_VAI_AQUI
     )
     
     #disponivel = models.BooleanField(default=True) #talvez nao sera necessario
-    #o campo disponivle sera manipulado automaticamente pelo sistema
+    #o campo disponivel sera manipulado automaticamente pelo sistema
 
 class ProdutoModelForm(forms.ModelForm):
     class Meta:

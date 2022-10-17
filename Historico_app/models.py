@@ -10,6 +10,7 @@ class Historico(models.Model):
     #Campos
     produto = models.ForeignKey(Produto, related_name='produto', on_delete=models.CASCADE,blank=True,null=True)
     quantidade_comprada = models.PositiveIntegerField()
+    preco = models.DecimalField(max_digits=12, decimal_places=2)
     acao = models.CharField(choices=(('Comprar','Comprar'),('Vender','Vender')), max_length=7,blank=False,null=False)
     data = models.DateTimeField(auto_now_add=True)
 
@@ -19,3 +20,7 @@ class Historico(models.Model):
 
     def __str__(self):
         return self.acao
+    
+    @property
+    def valor_total(self) -> float:
+        return self.preco * self.quantidade_comprada

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'Perfil_app',
     'Home_app',
     'Produtos_app',
+    'Historico_app',
     #3rd party
     'django_extensions',
     'crispy_forms',

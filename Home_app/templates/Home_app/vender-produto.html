@@ -78,22 +78,51 @@
         <div class="col-lg-7 mb-5">
           <div class="contact-form bg-light p-30">
             <p>fomulario manual :</p>
-            <form action="post">
+            <form action="" method="post">
+              {% csrf_token %}
               {{formmanual.as_p}}
+              <button type="submit" class="btn btn-outline-warning">Vender Produto</button>
             </form>
-						<p>Formulario para a venda do produto abaixo:</p>
-						{% comment %} <form action="" method="post">
-							{% csrf_token %}
-							{{form.as_p}}
-							<button type="button" name="" id="" class="btn btn-warning">Vender Produto</button>
-						</form> {% endcomment %}
         	</div>
         </div>
 
         <div class="col-lg-5 mb-5">
-          <div class="bg-light p-30 mb-3"><h1>Produtos nas prateleiras</h1></div>
+          <div class="bg-light p-30 mb-3"><h1>Produtos nas prateleiras</h1>
+          <p>produtos que foram publicados por você</p></div>
 
-          <div class="bg-light p-30 mb-30">Listar aqui</div>
+          <div class="bg-light p-30 mb-30">
+            {% comment %} colocar o  codigo aqui {% endcomment %}
+            
+            {% for produto in prateleira %}
+              <p for="">{{produto.nome}} <label for="" style="color:green">publicado</label>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExtendInformation{{forloop.count}}" aria-expanded="false" aria-controls="collapseExtendInformation{{forloop.count}}">
+                  Mais Informações
+                </button>
+              </p>
+              <div class="collapse" id="collapseExtendInformation{{forloop.count}}">
+                <div class="card card-body">
+                  <div style="">
+                      <p>Preço do produto:{{produto.preco}}</p>
+                      <p>data de publicacao:{{produto.data_de_publicacao}}</p>
+                      <p>quantidade:{{produto.quantidade}}</p>
+                      <p>categoria:{{produto.categoria}}</p>
+                      {% if not produto.vendido %}
+                      <p>Produto ja foi vendido</p>
+                      {% else %}
+                      <p>link: <a href=""></a></p>
+                      {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+            <p>Historico de produtos publicados
+              <button type="button" 
+              onclick="location.href='{% url 'Home_app:historico_publicacao' %}'" 
+              class="btn btn-outline-warning">aqui</button>
+            </p>
+
+          </div>
         </div>
       </div>
     </div>
