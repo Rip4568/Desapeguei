@@ -5,12 +5,12 @@ from django.forms import NumberInput, Widget
 from .models import Categoria, Produto
 
 def lista_de_categorias() -> list:
-    #categorias = ''
     if Categoria.objects.exists():
-        categorias = [(categoria.categoria, categoria.categoria) for categoria in Categoria.objects.all()]
+        try:
+            categorias = [(categoria.categoria, categoria.categoria) for categoria in Categoria.objects.all()]
+        except:
+            return [('error','error')]
     else:
-        #Caso não exista criar uma categoria padrão pra depois o usuario trocar
-        #caso não consiga criar retornar um modelo de uma categoria (como abaixo)
         categorias = [('Sem_Categoria','Sem_Categoria')]
         return categorias
     return categorias

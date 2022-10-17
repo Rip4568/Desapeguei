@@ -15,16 +15,20 @@ class Imagens(models.Model):
 class Categoria(models.Model):
     categoria = models.CharField(max_length=128)
     slug = models.SlugField(unique=True)
+    imagem = models.ImageField(upload_to='uploads/',null=True,blank=True)
     
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.slug = self.categoria
+        
+    @property
+    def produtos_relacionados_quantidade(self):
+        return self.produto_set.all().count()
     
     def __str__(self):
         return self.categoria
-        
-        
-class Produto(models.Model):
+
+class Produto(models.Model):  
     publicado_por = models.OneToOneField(Perfil, on_delete=models.CASCADE,default=1)
     foto = models.ImageField(upload_to='uploads/',blank=True,null=True)
     fotos = models.ForeignKey(Imagens, on_delete=models.DO_NOTHING,blank=True,null=True)
