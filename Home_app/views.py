@@ -6,8 +6,16 @@ from django.views.generic import TemplateView, ListView
 from Produtos_app.forms import ProdutoManualForm
 from Produtos_app.models import Categoria, Produto
 from Historico_app.models import Historico
+
+TEMPLATE_HISTORICO_PUBLICACAO_PATH = 'Home_app/hitorico-publicacao.html'
+TEMPLATE_HISTORICO_PATH = 'Home_app/historicos.html'
 class HomeTemplateView(TemplateView):
     template_name = "Home_app/index.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categorias"] = Categoria.objects.all()
+        return context
+    
 
 class ShopTemplateView(TemplateView):
     template_name = "Home_app/shop.html"
@@ -36,7 +44,7 @@ class VenderProdutoView(TemplateView):
         context["prateleira"] = Produto.objects.filter(publicado_por=usuario.perfil)[0:5]
         return context
     
-    def post(self):
+    def post(self,*args, **kwargs):
         formulario = ProdutoManualForm(self.request.POST)
         if formulario.is_valid():
             foto = self.request.POST.get('foto')
@@ -59,19 +67,20 @@ class VenderProdutoView(TemplateView):
         return redirect(reverse('Home_app:vender_produto'))
         
 class HistoricoPublicacaoCompletoListView(ListView):
-    TEMPLATE_HISTORICO_PUBLICACAO_PATH = 'Home_app/hitorico-publicacao.html'
     template_name = TEMPLATE_HISTORICO_PUBLICACAO_PATH
     paginate_by = 10
     model = Produto
-    context_object_name = 'historico_publicacao'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['historico_publicacao'] = Produto.objects.filter(publicado_por=self.request.user.perfil)#funcionando sem isso ?
+        return context
+    
     
 class HistoricosListView(ListView):
-    TEMPLATE_HISTORICO_PATH = 'Home_app/historicos.html'
     template_name = TEMPLATE_HISTORICO_PATH
     paginate_by = 10
     model = Historico
     context_object_name = 'historicos'
-    
 
 
 def populate(request):

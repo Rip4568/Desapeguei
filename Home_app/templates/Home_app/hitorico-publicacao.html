@@ -79,6 +79,7 @@
             <span class="bg-secondary pr-3">Contact Us</span>
           </h2>
           {% endcomment %}
+
           <div class="row px-xl-5">
             <div class="col-lg mb-5">
               <div class="bg-light p-30">
@@ -97,7 +98,7 @@
                   <tbody>
                     {% for produto in historico_publicacao %}
                     <tr>
-                      <th scope="row">1</th>
+                      <th scope="row">{{forloop.count}}</th>
                       <td>{{produto.nome}}</td>
                       <td>{{produto.data_de_publicacao}}</td>
                       <td>{{produto.quantidade}}</td>
