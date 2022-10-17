@@ -1,5 +1,4 @@
 from itertools import zip_longest
-import re
 from django import forms
 from django.forms import NumberInput, Widget
 from .models import Categoria, Produto

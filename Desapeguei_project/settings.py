@@ -10,11 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+
 import dotenv
+
 dotenv.load_dotenv()
 import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,9 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.getenv('DEBUG')) == 'True'
-
-
+DEBUG = str(os.getenv('DEBUG',default="False")) == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -36,6 +37,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'crispy_forms',
     'django_unicorn',
+    'star_ratings',
     #allauth configurations
     'allauth',
     'allauth.account',
@@ -64,6 +67,7 @@ INSTALLED_APPS = [
 #instalar o whitenoise para a compreensão dos dados
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -152,3 +156,11 @@ SIGNUP_REDIRECT_URL = '/'#ao fazer o registro sera redirecionado para a seguinte
 LOGOUT_REDIRECT_URL = '/'#ao deslogar do site sera redirecionado para a seguinte url
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#Configurações do django-stars
+STAR_RATINGS_RERATE = False
+STAR_RATINGS_STAR_HEIGHT = 15
+STAR_RATINGS_STAR_WIDTH = 15
+STAR_RATINGS_ANONYMOUS = False
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"

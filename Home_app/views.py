@@ -1,11 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView, TemplateView
 
+from Historico_app.models import Historico
 from Produtos_app.forms import ProdutoManualForm
 from Produtos_app.models import Categoria, Produto
-from Historico_app.models import Historico
 
 TEMPLATE_HISTORICO_PUBLICACAO_PATH = 'Home_app/hitorico-publicacao.html'
 TEMPLATE_HISTORICO_PATH = 'Home_app/historicos.html'
@@ -14,6 +14,10 @@ class HomeTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["categorias"] = Categoria.objects.all()
+        context["produtos"] = Produto.objects.all().order_by('-data_de_publicacao')#lista de produtos masi recentes
+        #talvez trocar o a chave para produtos_recentes
+        context["produtos_mais_votados"] = Produto.objects.all().order_by('ratings')
+        
         return context
     
 
@@ -37,7 +41,7 @@ class VenderProdutoView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        #context["form"] = ProdutoModelForm # não sera utulizado, o manual é melhor
+        print(f'{self.request.POST}')
         usuario = self.request.user
         context["formmanual"] = ProdutoManualForm
         context["usuario"] = usuario

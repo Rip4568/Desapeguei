@@ -140,3 +140,5 @@ aFazer.txt
 #test
 .ignore
 
+.vscode
+staticfiles/
