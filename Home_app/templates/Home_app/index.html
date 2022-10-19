@@ -110,10 +110,7 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{% if produto.foto %}{{produto.foto.url}}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            {% comment %} <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> {% endcomment %}
+                            <a class="btn btn-outline-dark btn-square" href="{% url 'Home_app:Detail' produto.pk %}"><i class="fa fa-shopping-cart"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -126,12 +123,8 @@
                         </div>
                     </div>
                 </div>
-                {% comment %} {% ratings produto read_only %} {% endcomment %}
             </div>
-            {% comment %} {% ratings produto read_only %} {% endcomment %}
             {% endfor %}
-			{% comment %} fim do codigo do produto 1 {% endcomment %}
-            {% comment %} codigo do produto {% endcomment %}
             
     <!-- Products End -->
     
@@ -147,9 +140,6 @@
                         <img class="img-fluid w-100" src="{% if produto.foto %}{{produto.foto.url}}{% else %}{% static 'img/no_image.png' %}{% endif %}" alt="">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -158,11 +148,6 @@
                             <h5>R${{produto.preco | intcomma}}</h5>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">
-                            {% comment %} <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small> {% endcomment %}
                             <small>{% ratings produto %}</small>
                         </div>
                     </div>
@@ -177,6 +162,7 @@
     <!-- Vendor Start -->
     <div class="container-fluid py-5">
         <div class="row px-xl-5">
+            <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
             <div class="col">
                 <div class="owl-carousel vendor-carousel">
                     
@@ -234,7 +220,8 @@
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/ratings.js' %}"></script>
-    <!--ratin product-->
+    
+    <!--rating product-->
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 </body>
 

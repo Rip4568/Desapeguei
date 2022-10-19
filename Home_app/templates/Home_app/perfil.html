@@ -82,41 +82,48 @@
                 <div class="bg-light p-30 mb-30">
                     <h3>Historico recentes de Compra e Vendas</h3>
                     <hr>
-                    <p><label for="" style="color:green">Venda</label> Feita com sucesso <img src="https://img1.gratispng.com/20180712/gyf/kisspng-computer-icons-sales-label-sale-icon-5b47ae0a3ba453.2045258115314242662443.jpg" alt="" style="height:30px;width:30px;">
-                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExtendInformation1" aria-expanded="false" aria-controls="collapseExtendInformation1">
+                    {% for historico in compra_e_venda %}
+                    {% if historico.comprador.pk is user.perfil.pk %} 
+                    <p><label style="color:red">Compra </label> Feita com sucesso <img src="https://w7.pngwing.com/pngs/833/426/png-transparent-black-shopping-cart-icon-for-free-black-shopping-cart-icon.png" alt="" style="height:30px;width:30px;">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExtendInformation{{forloop.counter}}" aria-expanded="false" aria-controls="collapseExtendInformation{{forloop.counter}}">
                         Mais Informações
                       </button>
                     </p>
-                    <div class="collapse" id="collapseExtendInformation1">
+                    <div class="collapse" id="collapseExtendInformation{{forloop.counter}}">
                       <div class="card card-body">
                         <div style="">
-                            <p>Data e Hora:</p>
-                            <p>Produto:</p>
-                            <p>Vendedor:</p>
-                            <p>Valor:</p>
+                            <p>Data e Hora: {{historico.data}}</p>
+                            <p>Produto: {{historico.produto}}</p>
+                            <p>Vendedor: {{historico.vendedor}}</p>
+                            <p>Valor unitario: {{historico.preco}}</p>
+                            <p>Quantidade Comprada: {{historico.quantidade_comprada}}</p>
+                            <p>Valor Total: {{historico.valor_total}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </p>
+                    {% else %}
+                    <p><label for="" style="color:green">Venda</label> Feita com sucesso <img src="https://img1.gratispng.com/20180712/gyf/kisspng-computer-icons-sales-label-sale-icon-5b47ae0a3ba453.2045258115314242662443.jpg" alt="" style="height:30px;width:30px;">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExtendInformation{{forloop.counter}}" aria-expanded="false" aria-controls="collapseExtendInformation{{forloop.counter}}">
+                        Mais Informações
+                      </button>
+                    </p>
+                    <div class="collapse" id="collapseExtendInformation{{forloop.counter}}">
+                      <div class="card card-body">
+                        <div style="">
+                            <p>Data e Hora: {{historico.data}}</p>
+                            <p>Produto: {{historico.produto}}</p>
+                            <p>Comprador: {{historico.comprador}}</p>
+                            <p>Valor unitario: {{historico.preco}}</p>
+                            <p>Quantidade Vendida: {{historico.quantidade_comprada}}</p>
+                            <p>Valor Total: {{historico.valor_total}}</p>
                         </div>
                       </div>
                     </div>
                     </p>
-                    
                     <hr>
-                    <p for=""><label for="" style="color:red">Compra</label> Feita com sucesso <img src="https://w7.pngwing.com/pngs/833/426/png-transparent-black-shopping-cart-icon-for-free-black-shopping-cart-icon.png" alt="" style="height:30px;width:30px;">
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExtendInformation" aria-expanded="false" aria-controls="collapseExtendInformation">
-                          Mais Informações
-                        </button>
-                      </p>
-                      <div class="collapse" id="collapseExtendInformation">
-                        <div class="card card-body">
-                          <div style="">
-                              <p>Data e Hora:</p>
-                              <p>Produto:</p>
-                              <p>Comprador:</p>
-                              <p>Valor:</p>
-                          </div>
-                        </div>
-                      </div>
-                    </p>
-
+                    {% endif %}
+                    {% endfor %}
                   <div class="card">
                     <button onclick="location.href='{% url 'Home_app:historicos' %}'" type="button" name="" id="" class="btn btn-warning">Ver Todo o historico</button>
                   </div>

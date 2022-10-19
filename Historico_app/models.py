@@ -1,6 +1,8 @@
 from django.db import models
+
 from Perfil_app.models import Perfil
 from Produtos_app.models import Produto
+
 
 #o historico será criado se e somente se a compra for bem sucedida
 class Historico(models.Model):

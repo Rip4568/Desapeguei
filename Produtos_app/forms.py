@@ -1,7 +1,8 @@
-from itertools import zip_longest
 from django import forms
 from django.forms import NumberInput, Widget
+
 from .models import Categoria, Produto
+
 
 def lista_de_categorias() -> list:
     if Categoria.objects.exists():
@@ -16,6 +17,9 @@ def lista_de_categorias() -> list:
         
 
 class ProdutoManualForm(forms.Form):
+    #publicado_por = models.ForeignKey(Perfil, on_delete=models.CASCADE, default=1,null=False,blank=False)
+    #publicado_por = forms.IntegerField(forms.HiddenInput(attrs={"value":"{user}"}))
+    
     #foto = models.ImageField(upload_to='uploads/',blank=True,null=True)
     foto = forms.ImageField(
         label="Foto do produto* (apenas uma)",
@@ -61,12 +65,27 @@ class ProdutoManualForm(forms.Form):
         label="",
         widget=forms.Textarea(
             attrs={
-                "rows":6,
+                "rows":3,
                 "placeholder":"Digite a descrição do produto (opcional)...",
                 "class":"form-control"
             }
         )
     )
+    
+    
+    informacao = forms.CharField(
+        label_suffix="",
+        required=False,
+        label="",
+        widget=forms.Textarea(
+            attrs={
+                "rows":3,
+                "placeholder":"Digite uma informação adicional (opcional)...",
+                "class":"form-control"
+            }
+        )
+    )
+    
 
     #quantidade = models.PositiveIntegerField(default=1)
     quantidade = forms.IntegerField(
