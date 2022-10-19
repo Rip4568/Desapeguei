@@ -4,17 +4,14 @@ from django.forms import NumberInput, Widget
 from .models import Categoria, Produto
 
 
-def lista_de_categorias() -> list:
-    if Categoria.objects.exists():
-        try:
-            categorias = [(categoria.categoria, categoria.categoria) for categoria in Categoria.objects.all()]
-        except:
-            return [('error','error')]
-    else:
-        categorias = [('Sem_Categoria','Sem_Categoria')]
-        return categorias
-    return categorias
-        
+def carregar_escolhas():
+    try:
+        if Categoria.objects.exists():
+            return [(categoria.categoria, categoria.categoria) for categoria in Categoria.objects.all()]
+        else:
+            return [('Sem_Categoria_existentes','Sem_Categoria_existentes')]
+    except:
+        return [('error','error')]
 
 class ProdutoManualForm(forms.Form):
     #publicado_por = models.ForeignKey(Perfil, on_delete=models.CASCADE, default=1,null=False,blank=False)
@@ -105,7 +102,7 @@ class ProdutoManualForm(forms.Form):
     categoria = forms.ChoiceField(
         label="Categoria do produto",
         required=True,
-        choices=lista_de_categorias(),
+        choices=[('Roupa','Roupa'),('Comida','Comida'),('Informatica','Informatica')],
         #widget=forms.QUAL_WIDGET_VAI_AQUI
     )
     
