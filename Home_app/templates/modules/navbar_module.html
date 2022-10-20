@@ -44,11 +44,11 @@
                         <a href="{% url 'Home_app:Home' %}" class="nav-item nav-link {% comment %} active {% endcomment %}">Home</a>
                         <a href="{% url 'Home_app:Shop' %}"  class="nav-item nav-link">Shop</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
+                            {% comment %} <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                 <a href="{% url 'Home_app:Cart' %}" class="dropdown-item">Shopping Cart</a>
                                 <a href="{% url 'Home_app:Checkout' %}" class="dropdown-item">Checkout</a>
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                         {% comment %} Pagina de Contato {% endcomment %}
                         {% comment %} <a href="{% url 'Home_app:Contact' %}" class="nav-item nav-link">Contact</a> {% endcomment %}
