@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'Home_app',
     'Produtos_app',
     'Historico_app',
-    #3rd party
+    'Comentarios_app',
+    #dependencias
     'django_extensions',
     'crispy_forms',
     'django_unicorn',

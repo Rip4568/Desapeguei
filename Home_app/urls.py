@@ -18,4 +18,6 @@ urlpatterns = [
     path('populate',views.populate,),
     #LEMBRETE tirar a rota daqui e por no aplicativo Perfil_app.urls
     
+    path('criar_comentario/',views.criar_comentario,name='criar_comentario')
+    
 ]

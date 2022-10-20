@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, TemplateView
+from Comentarios_app.forms import ComentarioManualForm
+from Comentarios_app.models import Comentario
 
 from Historico_app.models import Historico
 from Perfil_app.models import Perfil
@@ -50,9 +52,15 @@ class DetailTemplateView(DetailView):
     template_name = "Home_app/detail.html"
     model = Produto
     context_object_name = 'produto'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["produtos_sugestao"] = Produto.objects.all().order_by('-ratings')[0:5]
+        context["form"] = ComentarioManualForm
+        context["comentarios"] = Comentario.objects.filter(produto=self.get_object())
+        return context
 
     def post(self,request,*args, **kwargs):
-        #TESTAR NOVO METODO
         quantidade_comprada_produto = int(self.request.POST.get("quantidade_a_ser_comprada"))
         #produto = self.get_object()#sera que essse metodo não é funcional ?
         produto = Produto.objects.get(pk=self.get_object().pk)
@@ -80,11 +88,7 @@ class DetailTemplateView(DetailView):
             return HttpResponse("Tentativa de burlar o sistema detectatdo!, quantidade a ser comprada : {} , quantidade disponivel : {}".format(quantidade_comprada_produto, produto.quantidade))
         return redirect(reverse('Home_app:Detail',args=[self.get_object().id]))
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["1"] = 1
-        context["produtos_sugestao"] = Produto.objects.all().order_by('-ratings')[0:5]
-        return context
+    
 
 class ProdutoCategoriaListView(ListView):
     model = Categoria
@@ -160,8 +164,14 @@ class CategoriaFiltragemDetailView(DetailView):
         context["produtos"] = Produto.objects.filter(categoria=self.get_object())
         return context
     
-
-    
+def criar_comentario(request):
+    print("{}".format(request.POST))
+    Comentario.objects.create(
+        comentado_por=Perfil.objects.get(pk=request.user.perfil.pk),
+        produto=Produto.objects.get(pk=request.POST.get("produto")),
+        comentario=request.POST.get('comentario')
+    )
+    return redirect(reverse('Home_app:Detail',args={'id_produto':request.POST.get('produto')}))
 
 
 def populate(request):
