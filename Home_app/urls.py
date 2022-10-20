@@ -14,6 +14,7 @@ urlpatterns = [
     path('vender-produto/',views.VenderProdutoView.as_view(),name='vender_produto'),
     path('perfil/publicacoes-historico/',views.HistoricoPublicacaoCompletoListView.as_view(),name='historico_publicacao'),
     path('perfil/historicos/',views.HistoricosListView.as_view(),name='historicos'),
+    path('categoria-filtro/<categoria_id>',views.CategoriaFiltragemDetailView.as_view(),name='categoria_filtro'),
     path('populate',views.populate,),
     #LEMBRETE tirar a rota daqui e por no aplicativo Perfil_app.urls
     

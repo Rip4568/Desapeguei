@@ -86,6 +86,11 @@ class DetailTemplateView(DetailView):
         context["produtos_sugestao"] = Produto.objects.all().order_by('-ratings')[0:5]
         return context
 
+class ProdutoCategoriaListView(ListView):
+    model = Categoria
+    template_name = ".html"
+
+
 class ContactTemplteView(TemplateView):
     template_name = "Home_app/contact.html"
 
@@ -143,6 +148,20 @@ class HistoricosListView(ListView):
     paginate_by = 10
     model = Historico
     context_object_name = 'historicos'
+
+
+class CategoriaFiltragemDetailView(DetailView):
+    model = Categoria
+    template_name = "Home_app/shop.html"
+    pk_url_kwarg = 'categoria_id'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["produtos"] = Produto.objects.filter(categoria=self.get_object())
+        return context
+    
+
+    
 
 
 def populate(request):

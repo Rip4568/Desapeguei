@@ -81,7 +81,7 @@
         <div class="row px-xl-5 pb-3">
             {% for categoria in categorias %}
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
+                <a class="text-decoration-none" href="{% url 'Home_app:categoria_filtro' categoria.id %}">
                     <div class="cat-item d-flex align-items-center mb-4">
                         <div class="overflow-hidden" style="width: 100px; height: 100px;">
                             <img class="img-fluid" style="wdith:100%; height: 100%;" src="{% if categoria.imagem %}{{categoria.imagem.url}}{% endif %}" alt="">
@@ -115,6 +115,7 @@
                     </div>
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate" href="">{{produto.nome}}</a>
+                        <p>Categoria: {{produto.categoria}}</p>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5>R${{produto.preco | intcomma}}</h5>
                         </div>
