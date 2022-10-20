@@ -2,7 +2,7 @@
 {% load humanize %}
 {% load ratings %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
     <title>MultiShop - Online Shop Website Template</title>
@@ -171,38 +171,26 @@
                                         <div class="media-body">
                                             <div>
                                                 <h6>{{comentario.comentado_por}}<small> - <i>{{comentario.data}}</i></small></h6>
-                                            <div class="text-primary mb-2">
+                                            {% comment %} <div class="text-primary mb-2">
                                                 {% ratings comentario.produto %}
-                                            </div>
+                                            </div> {% endcomment %}
                                             <p>{{comentario.comentario}}</p>
                                             </div>
                                             <hr>
                                         </div>
                                     </div>
                                     {% endfor %}
-                                    <div class="media mb-4">
-                                        <img src="{% static 'img/user.jpg' %}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                        <div class="media-body">
-                                            <div>
-                                                <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
-                                            <div class="text-primary mb-2">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                            <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
-                                            </div>
-                                            <hr>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h4 class="mb-4">Deixe sua avaliação</h4>
                                     <div class="d-flex my-3">
                                         <p class="mb-0 mr-2">{% ratings produto %}</p>
                                     </div>
+                                    {% if not user.is_authenticated %}
+                                        <p>Faça login para deixar comentario</p>
+                                    {% elif ja_comentou %}
+                                        <p>Você ja comentou nesse produto</p>
+                                    {% else %}
                                     <form method="post" action="{% url 'Home_app:criar_comentario' %}">
                                         {% csrf_token %}
                                         <div class="form-group">
@@ -215,6 +203,7 @@
                                             <button type="submit" id="" class="btn btn-primary px-3">Deixar Avaliação</button>
                                         </div>
                                     </form>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

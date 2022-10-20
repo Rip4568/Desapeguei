@@ -5,7 +5,7 @@ from Produtos_app.models import Produto
 
 class Comentario(models.Model):
     comentado_por = models.OneToOneField(Perfil, on_delete=models.CASCADE, related_name="comentario")
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE, related_name="comentarios")
     comentario = models.TextField()
     data = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 

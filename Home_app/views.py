@@ -58,6 +58,7 @@ class DetailTemplateView(DetailView):
         context["produtos_sugestao"] = Produto.objects.all().order_by('-ratings')[0:5]
         context["form"] = ComentarioManualForm
         context["comentarios"] = Comentario.objects.filter(produto=self.get_object())
+        context["ja_comentou"] = Comentario.objects.filter(produto=self.get_object(), comentado_por=self.request.user.perfil).exists()
         return context
 
     def post(self,request,*args, **kwargs):
@@ -166,12 +167,12 @@ class CategoriaFiltragemDetailView(DetailView):
     
 def criar_comentario(request):
     print("{}".format(request.POST))
-    Comentario.objects.create(
+    comentario_novo = Comentario.objects.create(
         comentado_por=Perfil.objects.get(pk=request.user.perfil.pk),
         produto=Produto.objects.get(pk=request.POST.get("produto")),
         comentario=request.POST.get('comentario')
-    )
-    return redirect(reverse('Home_app:Detail',args={'id_produto':request.POST.get('produto')}))
+    ).save()
+    return redirect(reverse('Home_app:Detail',args=(comentario_novo.produto.pk)))
 
 
 def populate(request):
